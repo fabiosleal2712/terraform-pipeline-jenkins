@@ -1,3 +1,9 @@
+variable "SSH_PUBLIC_KEY" {
+  description = "The SSH public key"
+  type        = string
+  default     = ""
+}
+
 resource "aws_key_pair" "keydotnet" {
   key_name   = "keydotnet"
   public_key = var.SSH_PUBLIC_KEY
