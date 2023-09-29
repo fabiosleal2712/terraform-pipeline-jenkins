@@ -3,6 +3,8 @@ pipeline {
 
     environment {
         AWS_CREDENTIALS = credentials('62c39d7a-6bdc-474a-9d4f-7c379e3b7c9d')
+        // Substitua 'id-da-credencial' pelo ID real da sua credencial no Jenkins
+        SSH_PUBLIC_KEY = credentials('18933e5f-ca4d-4751-a118-29381470793f')
     }
 
     stages {
@@ -23,7 +25,8 @@ pipeline {
         stage('Apply Terraform') {
             steps {
                 script {
-                    sh 'terraform apply -auto-approve'
+                    // Passe a variável de ambiente como uma variável para o Terraform
+                    sh 'terraform apply -var "SSH_PUBLIC_KEY=${env.SSH_PUBLIC_KEY}" -auto-approve'
                 }
             }
         }
@@ -51,15 +54,3 @@ pipeline {
         }
     }
 }
-
-
-        stage('Apply Terraform') {
-            steps {
-                script {
-                    // Passe a variável de ambiente como uma variável para o Terraform
-                    sh 'terraform apply -var "SSH_PUBLIC_KEY=${env.SSH_PUBLIC_KEY}" -auto-approve'
-                }
-            }
-        }
-    
-
