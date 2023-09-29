@@ -26,7 +26,7 @@ pipeline {
             steps {
                 script {
                     // Passe a variável de ambiente como uma variável para o Terraform
-                    sh 'terraform apply -var "SSH_PUBLIC_KEY='+ env.SSH_PUBLIC_KEY +'" -auto-approve'
+                    sh 'terraform apply -auto-approve'
                 }
             }
         }
