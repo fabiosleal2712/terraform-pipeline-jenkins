@@ -53,15 +53,11 @@ pipeline {
 }
 
 
-        stage('SSH to EC2') {
+        stage('Apply Terraform') {
             steps {
                 script {
-                    // Substitua pelo comando que obtém o IP da instância EC2 do Terraform
-                    def instanceIp = sh(script: 'terraform output instance_ip', returnStdout: true).trim()
-
-                    sshagent(['18933e5f-ca4d-4751-a118-29381470793f']) {
-                        sh "ssh -o StrictHostKeyChecking=no ec2-user@${instanceIp} echo 'Conectado com sucesso!'"
-                    }
+                    // Passe a variável de ambiente como uma variável para o Terraform
+                    sh 'terraform apply -var "SSH_PUBLIC_KEY=${env.SSH_PUBLIC_KEY}" -auto-approve'
                 }
             }
         }
