@@ -1,0 +1,31 @@
+pipeline {
+    agent any
+
+    environment {
+        AWS_CREDENTIALS = credentials('id-das-credenciais-aws')
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Init Terraform') {
+            steps {
+                script {
+                    sh 'terraform init'
+                }
+            }
+        }
+
+        stage('Apply Terraform') {
+            steps {
+                script {
+                    sh 'terraform apply -auto-approve'
+                }
+            }
+        }
+    }
+}

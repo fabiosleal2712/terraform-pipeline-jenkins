@@ -1,0 +1,3 @@
+keydotnet*
+.terraform/*
+.terraform.lock.hcl
