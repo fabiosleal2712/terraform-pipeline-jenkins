@@ -1,16 +1,21 @@
+variable "SSH_PUBLIC_KEY" {
+  description = "The SSH public key"
+  type        = string
+  default     = ""
+}
+
 resource "aws_key_pair" "keydotnet" {
   key_name   = "keydotnet"
-  public_key = file("./keydotnet.pub")
+  public_key = var.SSH_PUBLIC_KEY
 }
 
 resource "aws_instance" "ec2_instance" {
   ami           = "ami-08a52ddb321b32a8c"  # Substitua pelo ID da AMI desejada
   instance_type = "t2.micro"
-  key_name      = "keydotnet"
+  key_name      = aws_key_pair.keydotnet.key_name
   subnet_id     = aws_subnet.public_subnet.id
-  vpc_security_group_ids = [aws_security_group.ssh.id]  # Associa o grupo de segurança à instância
-  
-  #user_data = file("${path.module}/user_data.sh")
+  vpc_security_group_ids = [aws_security_group.ssh.id]
+}
 
   tags = {
     Name = "EC2-Instance"
