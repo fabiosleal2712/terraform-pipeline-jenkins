@@ -13,7 +13,7 @@ pipeline {
                 checkout scm
             }
         }
-        // estados do terrafoem init
+        // estados do terraform init
         stage('Init Terraform') {
             steps {
                 script {
@@ -25,12 +25,12 @@ pipeline {
         stage('Apply Terraform') {
             steps {
                 script {
-                    sh 'terraform apply -var "SSH_PUBLIC_KEY=${env.SSH_PUBLIC_KEY}" -auto-approve'
+                    // Passe a variável de ambiente como uma variável para o Terraform
+                    sh 'terraform apply -var "SSH_PUBLIC_KEY='+ env.SSH_PUBLIC_KEY +'" -auto-approve'
                 }
             }
         }
 
-        
         stage('Confirm Destroy') {
             steps {
                 script {
