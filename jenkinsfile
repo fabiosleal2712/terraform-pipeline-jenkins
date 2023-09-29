@@ -29,6 +29,8 @@ pipeline {
                 }
             }
         }
+
+        
         stage('Confirm Destroy') {
             steps {
                 script {
