@@ -1,6 +1,6 @@
 resource "aws_key_pair" "keydotnet" {
   key_name   = "keydotnet"
-  public_key = var.SSH_PUBLIC_KEY
+  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDQJIjkW/poiag9oRNXZkxQJ1SGJ4f9a2y60Dsb37xijkYGZEBYG36Knp78ttwKIX9gyu+IOcBok5DGpR4CuYLkM8XxQJcXqACAogOLLPNza5DD3th/anIVp8RrBO27e6c0VdmOdhGYSye1sfDWpwBSIRXneFI52ZHo1KIcIxksYDITeGfUg/CI1/HPFzAdZcld/s/0F6SFRtHnkHHVfI0UvjI9nLQ7wWIoAXVCDkkBAn2Rqp96AkPjvGwHYl7YCe2djGrFbnqMzJfoNtjxZajciW6RYJM/e/ovqPWJ4fq5kk4wWqLbDQyUVSIZebXJQL3jFiIFlbEn1D0gD5gRbaPHvLGV1r2x3v6jFhm0WHyvxI2VQLY22Fbb5DB1NgShNIZnZ0ULt95wnks5efVvQGO3rKDW1SOIQbVqM3a+rbQ61X422xy+fRjDeD3ncg1ICLu+F8XI5wLgGvRVVQt5MfWdXCWDa2Z5VEy/mYOwByU/Fe+IkhJhtSpnFwM+Y6Tcn1U= fabio@fabiodesk1"
 }
 
 resource "aws_instance" "ec2_instance" {
