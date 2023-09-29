@@ -13,7 +13,7 @@ pipeline {
                 checkout scm
             }
         }
-
+        // estados do terrafoem init
         stage('Init Terraform') {
             steps {
                 script {
