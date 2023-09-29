@@ -25,8 +25,10 @@ pipeline {
         stage('Apply Terraform') {
             steps {
                 script {
-                    // Passe a variável de ambiente como uma variável para o Terraform
-                    sh 'terraform apply -auto-approve'
+                    // Injete o texto secreto como uma variável de ambiente
+                    withCredentials([string(credentialsId: '18933e5f-ca4d-4751-a118-29381470793f', variable: 'SSH_PUBLIC_KEY')]) {
+                        sh 'terraform apply -var "SSH_PUBLIC_KEY=${SSH_PUBLIC_KEY}" -auto-approve'
+                    }
                 }
             }
         }
