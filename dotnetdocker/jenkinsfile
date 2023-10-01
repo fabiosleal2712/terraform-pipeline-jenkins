@@ -1,0 +1,22 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('SCP Copy') {
+            steps {
+                script {
+                    // Substitua 'YourCredentialID' pelo ID da credencial que você criou.
+                    // Substitua 'remoteUser' pelo nome de usuário no servidor remoto.
+                    // Substitua 'remoteServer' pelo endereço IP ou nome do host do servidor remoto.
+                    // Substitua 'sourceFile' pelo caminho do arquivo que você deseja copiar.
+                    // Substitua 'destinationPath' pelo caminho de destino no servidor remoto.
+                    sshagent(credentials: ['YourCredentialID']) {
+                        sh """
+                           scp sourceFile remoteUser@remoteServer:destinationPath
+                        """
+                    }
+                }
+            }
+        }
+    }
+}
