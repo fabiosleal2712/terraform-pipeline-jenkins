@@ -1,3 +1,5 @@
 keydotnet*
 .terraform/*
 .terraform.lock.hcl
+terraapply
+terradestr
