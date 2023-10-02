@@ -44,15 +44,15 @@ pipeline {
 //            }
 //        }
 
-        stage('Destroy Terraform') {
-            when {
-                expression { currentBuild.resultIsBetterOrEqualTo('SUCCESS') }
-            }
-            steps {
-                script {
-                    sh 'terraform destroy -auto-approve'
-                }
-            }
-        }
+//        stage('Destroy Terraform') {
+//            when {
+//                expression { currentBuild.resultIsBetterOrEqualTo('SUCCESS') }
+//            }
+//            steps {
+//                script {
+//                    sh 'terraform destroy -auto-approve'
+//                }
+//            }
+//        }
     }
 }
