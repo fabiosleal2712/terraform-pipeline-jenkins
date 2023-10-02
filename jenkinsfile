@@ -33,26 +33,26 @@ pipeline {
             }
         }
 
-        stage('Confirm Destroy') {
-            steps {
-                script {
-                    def userInput = input(id: 'confirm', message: 'Deseja destruir os recursos do Terraform?', parameters: [ [$class: 'BooleanParameterDefinition', defaultValue: false, description: '', name: 'confirm'] ])
-                    if (!userInput) {
-                        error("Destruição de recursos cancelada pelo usuário.")
-                    }
-                }
-            }
-        }
+//        stage('Confirm Destroy') {
+//            steps {
+//                script {
+//                    def userInput = input(id: 'confirm', message: 'Deseja destruir os recursos do Terraform?', parameters: [ [$class: 'BooleanParameterDefinition', defaultValue: false, description: '', name: 'confirm'] ])
+//                    if (!userInput) {
+//                        error("Destruição de recursos cancelada pelo usuário.")
+//                    }
+//                }
+//            }
+//        }
 
-        stage('Destroy Terraform') {
-            when {
-                expression { currentBuild.resultIsBetterOrEqualTo('SUCCESS') }
-            }
-            steps {
-                script {
-                    sh 'terraform destroy -auto-approve'
-                }
-            }
-        }
-    }
-}
+//        stage('Destroy Terraform') {
+//            when {
+//                expression { currentBuild.resultIsBetterOrEqualTo('SUCCESS') }
+//            }
+//            steps {
+//                script {
+//                    sh 'terraform destroy -auto-approve'
+//                }
+//            }
+//        }
+//    }
+//}
