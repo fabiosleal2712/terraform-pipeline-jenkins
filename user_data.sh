@@ -11,7 +11,7 @@ sudo chmod +x /usr/local/bin/docker-compose
     yum -y update
 
     # Instale qualquer software necessário (opcional)
-    # yum -y install software
+    # yum -y install softwa
 
     # Crie uma pasta no diretório /home/ec2-user (ou outro local desejado)
     mkdir -p /home/ec2-user/_data
