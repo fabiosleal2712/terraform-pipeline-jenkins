@@ -22,16 +22,6 @@ pipeline {
             }
         }
 
-        stage('Apply Terraform') {
-            steps {
-                script {
-                    // Injete o texto secreto como uma variável de ambiente
-                    withCredentials([string(credentialsId: '4713449b-a476-429a-afe4-f0bec4086c9a', variable: 'SSH_PUBLIC_KEY')]) {
-                        sh 'terraform apply -var "SSH_PUBLIC_KEY=${SSH_PUBLIC_KEY}" -auto-approve'
-                    }
-                }
-            }
-        }
 
 //        stage('Confirm Destroy') {
 //            steps {
@@ -44,15 +34,15 @@ pipeline {
 //            }
 //        }
 
-//        stage('Destroy Terraform') {
-//            when {
-//                expression { currentBuild.resultIsBetterOrEqualTo('SUCCESS') }
-//            }
-//            steps {
-//                script {
-//                    sh 'terraform destroy -auto-approve'
-//                }
-//            }
-//        }
+        stage('Destroy Terraform') {
+            when {
+                expression { currentBuild.resultIsBetterOrEqualTo('SUCCESS') }
+            }
+            steps {
+                script {
+                    sh 'terraform destroy -auto-approve'
+                }
+            }
+        }
     }
 }
