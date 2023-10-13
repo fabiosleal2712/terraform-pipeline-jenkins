@@ -47,7 +47,7 @@ pipeline {
             steps {
                 withCredentials([string(credentialsId: '4713449b-a476-429a-afe4-f0bec4086c9a', variable: 'SSH_PUBLIC_KEY')]) {
                     sh '''
-                    ssh -o StrictHostKeyChecking=no ec2-user@{VM_IP} " 
+                    ssh -o StrictHostKeyChecking=no ec2-user@${VM_IP} " 
                         sudo yum update
                         sudo yum -y install docker wget git
                         sudo service docker start
