@@ -34,27 +34,27 @@ pipeline {
         }
 
 
-        stage('Get VM IP') {
-            steps {
-                script {
-                    env.VM_IP = sh(script: 'terraform output vm_ip', returnStdout: true).trim()
-                }
-            }
-        }
+//        stage('Get VM IP') {
+//            steps {
+//                script {
+//                    env.VM_IP = sh(script: 'terraform output vm_ip', returnStdout: true).trim()
+ //               }
+//            }
+//        }
 
 
-        stage('Apply user data') {
-            steps {
-                withCredentials([string(credentialsId: 'ce70bf80-5922-4034-b9b5-960973fa2bc4', variable: 'SSH_PUBLIC_KEY')]) {
-                    sh '''
-                    ssh -o StrictHostKeyChecking=no ec2-user@${VM_IP} " 
-                    ping localhost
+//        stage('Apply user data') {
+//            steps {
+//                withCredentials([string(credentialsId: 'ce70bf80-5922-4034-b9b5-960973fa2bc4', variable: 'SSH_PUBLIC_KEY')]) {
+//                    sh '''
+//                    ssh -o StrictHostKeyChecking=no ec2-user@${VM_IP} " 
+//                    ping localhost
 
-                    "
-                    '''
-                }
-            }
-        }
+//                    "
+//                    '''
+//                }
+//            }
+//        }
     
 
 
