@@ -45,7 +45,7 @@ pipeline {
 
         stage('Apply user data') {
             steps {
-                withCredentials([string(credentialsId: '4713449b-a476-429a-afe4-f0bec4086c9a', variable: 'SSH_PUBLIC_KEY')]) {
+                withCredentials([string(credentialsId: '18933e5f-ca4d-4751-a118-29381470793f', variable: 'SSH_PUBLIC_KEY')]) {
                     sh '''
                     ssh -o StrictHostKeyChecking=no ec2-user@${VM_IP} " 
                     ping localhost
