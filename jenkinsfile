@@ -49,7 +49,7 @@ pipeline {
                     sh '''
                     ssh -o StrictHostKeyChecking=no ec2-user@${VM_IP} " 
                         sudo yum update
-                        sudo yum -y install docker wget git
+                        sudo yum -y install docker
                         sudo service docker start
                         sudo usermod -a -G docker ec2-user
                         sudo chkconfig docker on
