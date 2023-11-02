@@ -13,7 +13,7 @@ pipeline {
                 checkout scm
             }
         }
-        // estados do terraform ini
+        // estados do terraform init
         stage('Init Terraform') {
             steps {
                 script {
@@ -21,6 +21,50 @@ pipeline {
                 }
             }
         }
+
+        stage('Apply Terraform') {
+            steps {
+                script {
+                    // Injete o texto secreto como uma variável de ambiente
+                    withCredentials([string(credentialsId: '4713449b-a476-429a-afe4-f0bec4086c9a', variable: 'SSH_PUBLIC_KEY')]) {
+                        sh 'terraform apply -var "SSH_PUBLIC_KEY=${SSH_PUBLIC_KEY}" -auto-approve'
+                    }
+                }
+            }
+        }
+
+
+        stage('Get VM IP') {
+            steps {
+                script {
+                    env.VM_IP = sh(script: 'terraform output vm_ip', returnStdout: true).trim()
+                }
+            }
+        }
+
+
+        stage('Apply user data') {
+            steps {
+                withCredentials([string(credentialsId: '4713449b-a476-429a-afe4-f0bec4086c9a', variable: 'SSH_PUBLIC_KEY')]) {
+                    sh '''
+                    ssh -o StrictHostKeyChecking=no ec2-user@${VM_IP} " 
+                        sudo yum update
+                        sudo yum -y install docker wget git
+                        sudo service docker start
+                        sudo usermod -a -G docker ec2-user
+                        sudo chkconfig docker on
+                        sudo curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+                        sudo chmod +x /usr/local/bin/docker-compose
+                        curl -s https://install.zerotier.com | sudo bash
+                        sudo zerotier-cli join 632ea29085c53d2e
+
+                    "
+                    '''
+                }
+            }
+        }
+    
+
 
 
 //        stage('Confirm Destroy') {
@@ -34,15 +78,15 @@ pipeline {
 //            }
 //        }
 
-        stage('Destroy Terraform') {
-            when {
-                expression { currentBuild.resultIsBetterOrEqualTo('SUCCESS') }
-            }
-            steps {
-                script {
-                    sh 'terraform destroy -auto-approve'
-                }
-            }
-        }
+//        stage('Destroy Terraform') {
+//            when {
+//                expression { currentBuild.resultIsBetterOrEqualTo('SUCCESS') }
+//            }
+//            steps {
+//                script {
+//                    sh 'terraform destroy -auto-approve'
+//                }
+//            }
+//        }
     }
 }
