@@ -57,8 +57,8 @@ resource "aws_security_group" "ssh" {
   }
 
   ingress {
-    from_port   = 8084
-    to_port     = 8084
+    from_port   = 443
+    to_port     = 443
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]  # Permite acesso de qualquer IP (não recomendado para produção)
   }
