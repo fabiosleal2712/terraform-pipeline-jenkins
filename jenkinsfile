@@ -13,7 +13,7 @@ pipeline {
                 checkout scm
             }
         }
-        // estados do terraform init
+        // estados do terraform ini
         stage('Init Terraform') {
             steps {
                 script {
@@ -22,17 +22,27 @@ pipeline {
             }
         }
 
-        stage('Apply Terraform') {
+
+//        stage('Confirm Destroy') {
+//            steps {
+//                script {
+//                    def userInput = input(id: 'confirm', message: 'Deseja destruir os recursos do Terraform?', parameters: [ [$class: 'BooleanParameterDefinition', defaultValue: false, description: '', name: 'confirm'] ])
+//                    if (!userInput) {
+//                        error("Destruição de recursos cancelada pelo usuário.")
+//                    }
+//                }
+//            }
+//        }
+
+        stage('Destroy Terraform') {
+            when {
+                expression { currentBuild.resultIsBetterOrEqualTo('SUCCESS') }
+            }
             steps {
                 script {
-                    // Injete o texto secreto como uma variável de ambiente
-                    withCredentials([string(credentialsId: '4713449b-a476-429a-afe4-f0bec4086c9a', variable: 'SSH_PUBLIC_KEY')]) {
-                        sh 'terraform apply -var "SSH_PUBLIC_KEY=${SSH_PUBLIC_KEY}" -auto-approve'
-                    }
+                    sh 'terraform destroy -auto-approve'
                 }
             }
         }
-
-
     }
 }
