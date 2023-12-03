@@ -48,7 +48,13 @@ resource "aws_security_group" "ssh" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]  # Permite acesso de qualquer IP (não recomendado para produção)
   }
-
+  
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]  # Permite acesso de qualquer IP (não recomendado para produção)
+  }
   egress {
     from_port   = 0
     to_port     = 0
