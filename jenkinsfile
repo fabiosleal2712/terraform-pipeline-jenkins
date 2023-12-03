@@ -34,13 +34,13 @@ pipeline {
         }
 
 
-        stage('Get VM IP') {
-            steps {
-                script {
-                    env.VM_IP = sh(script: 'terraform output vm_ip', returnStdout: true).trim()
-                }
-            }
-        }
+//        stage('Get VM IP') {
+//            steps {
+//                script {
+//                    env.VM_IP = sh(script: 'terraform output vm_ip', returnStdout: true).trim()
+//                }
+//            }
+//        }
 
 
 //        stage('Apply user data') {
