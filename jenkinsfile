@@ -34,5 +34,51 @@ pipeline {
         }
 
 
+//        stage('Get VM IP') {
+//            steps {
+//                script {
+//                    env.VM_IP = sh(script: 'terraform output vm_ip', returnStdout: true).trim()
+ //               }
+//            }
+//        }
+
+
+//        stage('Apply user data') {
+//            steps {
+//                withCredentials([string(credentialsId: 'ce70bf80-5922-4034-b9b5-960973fa2bc4', variable: 'SSH_PUBLIC_KEY')]) {
+//                    sh '''
+//                    ssh -o StrictHostKeyChecking=no ec2-user@${VM_IP} " 
+//                    ping localhost
+
+//                    "
+//                    '''
+//                }
+//            }
+   //     }
+    
+
+
+
+//        stage('Confirm Destroy') {
+//            steps {
+//                script {
+//                    def userInput = input(id: 'confirm', message: 'Deseja destruir os recursos do Terraform?', parameters: [ [$class: 'BooleanParameterDefinition', defaultValue: false, description: '', name: 'confirm'] ])
+//                    if (!userInput) {
+//                        error("Destruição de recursos cancelada pelo usuário.")
+//                    }
+//                }
+//            }
+//        }
+
+//        stage('Destroy Terraform') {
+//            when {
+//                expression { currentBuild.resultIsBetterOrEqualTo('SUCCESS') }
+//            }
+//            steps {
+//                script {
+//                    sh 'terraform destroy -auto-approve'
+//                }
+//            }
+//        }
     }
 }
